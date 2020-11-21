@@ -36,6 +36,7 @@ def int_list_to_rom(int_list):
         rom_list.append(int_to_roman(item))
     return rom_list
 
+
 def is_prime(num):
     i = 2
     while i <= np.sqrt(num):
@@ -148,7 +149,7 @@ for s in e3_s_valids:
                         e6_t_valids.append(t)
                     if a not in e6_a_valids:
                         e6_a_valids.append(a)
-print('s: ', int_list_to_rom(e6_s_valids), ' b: ', nt_list_to_rom(e6_b_valids), ' t: ', nt_list_to_rom(e6_t_valids),
+print('s: ', int_list_to_rom(e6_s_valids), ' b: ', int_list_to_rom(e6_b_valids), ' t: ', int_list_to_rom(e6_t_valids),
       ' a: ', int_list_to_rom(e6_a_valids))
 
 print('e2: e + f + + g + h + k + VII = s + m')
