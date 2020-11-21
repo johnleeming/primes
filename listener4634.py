@@ -66,23 +66,57 @@ def group_primes_by_length():
 # main
 find_primes(5000)
 group_primes_by_length()
-# i = 0
-# while i < 10:
-#     j = 0
-#     while j < len(primes_by_length[i]):
-#         print(primes_by_length[i][j], roman_primes_by_length[i][j])
-#         j += 1
-#     i += 1
 
-print ('e1: d = Vt + c + n')
+
+c = 3
+e1_d_valids = []
+e1_n_valids = []
 e1_t_valids = []
+print('e1: d = Vt + c + n')
 for d in primes_by_length[4]:
     for t in primes_by_length[9]:
-        for c in primes_by_length[3]:
-            for n in primes_by_length[6]:
-                if d == ((5 * t) + c + n):
-                    print(d, t, c, n, int_to_roman(d), int_to_roman(t), int_to_roman(c), int_to_roman(n))
-                    if t not in e1_t_valids:
-                        e1_t_valids.append(t)
+        for n in primes_by_length[6]:
+            if d == ((5 * t) + c + n):
+                if d not in e1_d_valids:
+                    e1_d_valids.append(d)
+                if t not in e1_t_valids:
+                    e1_t_valids.append(t)
+                if n not in e1_n_valids:
+                    e1_n_valids.append(n)
+print(e1_t_valids, e1_d_valids, c, e1_n_valids)
 
-print(e1_t_valids)
+e6_s_valids = []
+e6_b_valids = []
+e6_t_valids = []
+e6_a_valids = []
+print('e6: s + b = t + a')
+for s in primes_by_length[9]:
+    for b in primes_by_length[2]:
+        for t in e1_t_valids:
+            for a in primes_by_length[2]:
+                if (s + b) == (t + a):
+                    if s not in e6_s_valids:
+                        e6_s_valids.append(s)
+                    if b not in e6_b_valids:
+                        e6_b_valids.append(b)
+                    if t not in e6_t_valids:
+                        e6_t_valids.append(t)
+                    if a not in e6_a_valids:
+                        e6_a_valids.append(a)
+print(e6_s_valids, e6_b_valids, e6_t_valids, e6_a_valids)
+
+e3_a_valids = []
+e3_m_valids = []
+e3_s_valids = []
+print('e3: m + IV = s + IIa')
+for m in primes_by_length[5]:
+    for s in e6_s_valids:
+        for a in e6_a_valids:
+            if (m + 4) == (s + 2 * a):
+                if m not in e3_m_valids:
+                    e3_m_valids.append(m)
+                if s not in e3_s_valids:
+                    e3_s_valids.append(s)
+                if a not in e3_a_valids:
+                    e3_a_valids.append(a)
+print('m: ', e3_m_valids, ' s: ', e3_s_valids, ' a: ', e3_a_valids)
