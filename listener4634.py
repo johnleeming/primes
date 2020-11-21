@@ -41,10 +41,10 @@ def is_prime(num):
     return ans
 
 
-def find_primes(m):
+def find_primes(biggest):
     global primes, roman_primes
     test = 9
-    while test < m:
+    while test < biggest:
         if is_prime(test):
             primes.append(test)
             roman_primes.append(int_to_roman(test))
@@ -140,3 +140,17 @@ for s in e3_s_valids:
                     if a not in e6_a_valids:
                         e6_a_valids.append(a)
 print('s: ', e6_s_valids, ' b: ', e6_b_valids, ' t: ', e6_t_valids, ' a: ', e6_a_valids)
+
+print('e2: e + f + + g + h + k + VII = s + m')
+e2_valids = []
+for e in primes_by_length[4]:
+    for f in primes_by_length[4]:
+        for g in primes_by_length[4]:
+            for h in primes_by_length[4]:
+                for k in primes_by_length[4]:
+                    if e + f + g + h + k + 7 == e3_s_valids[0] + e6_s_valids[0]:
+                        temp_valids = [e, f, g, h, k]
+                        temp_valids.sort()
+                        if temp_valids not in e2_valids:
+                            e2_valids.append(temp_valids)
+print('e, f, g, h, j, k: ', e2_valids)
