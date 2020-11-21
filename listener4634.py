@@ -154,3 +154,15 @@ for e in primes_by_length[4]:
                         if temp_valids not in e2_valids:
                             e2_valids.append(temp_valids)
 print('e, f, g, h, j, k: ', e2_valids)
+
+print('e4: IIn = IIp + a + III')
+e4_n_valids = []
+e4_p_valids = []
+for n in e1_n_valids:
+    for p in primes_by_length[6]:
+        if 2 * n == (2 * p) + e6_a_valids[0] + 3:
+            if n not in e4_n_valids:
+                e4_n_valids.append(n)
+            if p not in e4_p_valids:
+                e4_p_valids.append(p)
+print('n: ', e4_n_valids, ' p: ', e4_p_valids)
