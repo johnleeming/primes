@@ -148,8 +148,8 @@ for s in e3_s_valids:
                         e6_t_valids.append(t)
                     if a not in e6_a_valids:
                         e6_a_valids.append(a)
-print('s: ', int_list_to_rom(e6_s_valids), ' b: ', e6_b_valids, ' t: ', e6_t_valids, ' a: ',
-      int_list_to_rom(e6_a_valids))
+print('s: ', int_list_to_rom(e6_s_valids), ' b: ', nt_list_to_rom(e6_b_valids), ' t: ', nt_list_to_rom(e6_t_valids),
+      ' a: ', int_list_to_rom(e6_a_valids))
 
 print('e2: e + f + + g + h + k + VII = s + m')
 e2_valids = []
