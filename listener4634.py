@@ -103,7 +103,7 @@ for s in primes_by_length[9]:
                         e6_t_valids.append(t)
                     if a not in e6_a_valids:
                         e6_a_valids.append(a)
-print(e6_s_valids, e6_b_valids, e6_t_valids, e6_a_valids)
+print('s: ', e6_s_valids, ' b: ', e6_b_valids, ' t: ', e6_t_valids, ' a: ', e6_a_valids)
 
 e3_a_valids = []
 e3_m_valids = []
@@ -120,3 +120,23 @@ for m in primes_by_length[5]:
                 if a not in e3_a_valids:
                     e3_a_valids.append(a)
 print('m: ', e3_m_valids, ' s: ', e3_s_valids, ' a: ', e3_a_valids)
+
+e6_s_valids = []
+e6_b_valids = []
+e6_t_valids = []
+e6_a_valids = []
+print('e6: s + b = t + a')
+for s in e3_s_valids:
+    for b in primes_by_length[2]:
+        for t in e1_t_valids:
+            for a in e3_a_valids:
+                if (s + b) == (t + a):
+                    if s not in e6_s_valids:
+                        e6_s_valids.append(s)
+                    if b not in e6_b_valids:
+                        e6_b_valids.append(b)
+                    if t not in e6_t_valids:
+                        e6_t_valids.append(t)
+                    if a not in e6_a_valids:
+                        e6_a_valids.append(a)
+print('s: ', e6_s_valids, ' b: ', e6_b_valids, ' t: ', e6_t_valids, ' a: ', e6_a_valids)
