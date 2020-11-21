@@ -68,22 +68,25 @@ find_primes(5000)
 group_primes_by_length()
 
 
-c = 3
+e1_c_valids = []
 e1_d_valids = []
 e1_n_valids = []
 e1_t_valids = []
 print('e1: d = Vt + c + n')
 for d in primes_by_length[4]:
     for t in primes_by_length[9]:
-        for n in primes_by_length[6]:
-            if d == ((5 * t) + c + n):
-                if d not in e1_d_valids:
-                    e1_d_valids.append(d)
-                if t not in e1_t_valids:
-                    e1_t_valids.append(t)
-                if n not in e1_n_valids:
-                    e1_n_valids.append(n)
-print(e1_t_valids, e1_d_valids, c, e1_n_valids)
+        for c in primes_by_length[3]:
+            for n in primes_by_length[6]:
+                if d == ((5 * t) + c + n):
+                    if d not in e1_d_valids:
+                        e1_d_valids.append(d)
+                    if t not in e1_t_valids:
+                        e1_t_valids.append(t)
+                    if c not in e1_c_valids:
+                        e1_c_valids.append(c)
+                    if n not in e1_n_valids:
+                        e1_n_valids.append(n)
+print('t: ', e1_t_valids,' d: ', e1_d_valids, ' c: ', e1_c_valids, 'n: ', e1_n_valids)
 
 e6_s_valids = []
 e6_b_valids = []
@@ -158,7 +161,7 @@ print('e, f, g, h, j, k: ', e2_valids)
 print('e4: IIn = IIp + a + III')
 e4_n_valids = []
 e4_p_valids = []
-for n in e1_n_valids:
+for n in primes_by_length[6]:
     for p in primes_by_length[6]:
         if 2 * n == (2 * p) + e6_a_valids[0] + 3:
             if n not in e4_n_valids:
