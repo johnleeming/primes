@@ -161,7 +161,7 @@ print('e, f, g, h, j, k: ', e2_valids)
 print('e4: IIn = IIp + a + III')
 e4_n_valids = []
 e4_p_valids = []
-for n in primes_by_length[6]:
+for n in e1_n_valids:
     for p in primes_by_length[6]:
         if 2 * n == (2 * p) + e6_a_valids[0] + 3:
             if n not in e4_n_valids:
