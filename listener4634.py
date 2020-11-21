@@ -183,3 +183,23 @@ for r in primes_by_length[7]:
             if r not in e5_r_valids:
                 e5_r_valids.append(r)
 print('q: ', e5_q_valids, ' r: ', e5_r_valids)
+
+e1_c_valids = []
+e1_d_valids = []
+e1_n_valids = []
+e1_t_valids = []
+print('e1: d = Vt + c + n')
+for d in primes_by_length[4]:
+    for t in e6_t_valids:
+        for c in primes_by_length[3]:
+            for n in e4_n_valids:
+                if d == ((5 * t) + c + n):
+                    if d not in e1_d_valids:
+                        e1_d_valids.append(d)
+                    if t not in e1_t_valids:
+                        e1_t_valids.append(t)
+                    if c not in e1_c_valids:
+                        e1_c_valids.append(c)
+                    if n not in e1_n_valids:
+                        e1_n_valids.append(n)
+print('t: ', e1_t_valids, ' d: ', e1_d_valids, ' c: ', e1_c_valids, 'n: ', e1_n_valids)

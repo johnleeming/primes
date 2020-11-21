@@ -57,3 +57,12 @@ with open('/home/john/primes/roman_primes.csv', 'w') as file:
         print(row)
         writer.writerow(row)
         i += 1
+
+with open('/home/john/word_lists/roman_primes', 'w') as file:
+    writer = csv.writer(file)
+    i = 0
+    while i < len(primes):
+        row = [roman_primes[i]]
+        print(row)
+        writer.writerow(row)
+        i += 1
