@@ -86,7 +86,7 @@ for d in primes_by_length[4]:
                         e1_c_valids.append(c)
                     if n not in e1_n_valids:
                         e1_n_valids.append(n)
-print('t: ', e1_t_valids,' d: ', e1_d_valids, ' c: ', e1_c_valids, 'n: ', e1_n_valids)
+print('t: ', e1_t_valids, ' d: ', e1_d_valids, ' c: ', e1_c_valids, 'n: ', e1_n_valids)
 
 e6_s_valids = []
 e6_b_valids = []
@@ -152,10 +152,12 @@ for e in primes_by_length[4]:
             for h in primes_by_length[4]:
                 for k in primes_by_length[4]:
                     if e + f + g + h + k + 7 == e3_s_valids[0] + e6_s_valids[0]:
-                        temp_valids = [e, f, g, h, k]
-                        temp_valids.sort()
-                        if temp_valids not in e2_valids:
-                            e2_valids.append(temp_valids)
+                        temp_set = {e, f, g, h, k}
+                        if len(temp_set) == 5:
+                            temp_valids = list(temp_set)
+                            temp_valids.sort()
+                            if temp_valids not in e2_valids:
+                                e2_valids.append(temp_valids)
 print('e, f, g, h, j, k: ', e2_valids)
 
 print('e4: IIn = IIp + a + III')
@@ -169,3 +171,15 @@ for n in e1_n_valids:
             if p not in e4_p_valids:
                 e4_p_valids.append(p)
 print('n: ', e4_n_valids, ' p: ', e4_p_valids)
+
+print('e5: q + XV = IVr)')
+e5_q_valids = []
+e5_r_valids = []
+for r in primes_by_length[7]:
+    for q in primes_by_length[7]:
+        if q + 15 == 4 * r:
+            if q not in e5_q_valids:
+                e5_q_valids.append(q)
+            if r not in e5_r_valids:
+                e5_r_valids.append(r)
+print('q: ', e5_q_valids, ' r: ', e5_r_valids)
