@@ -30,6 +30,12 @@ def int_to_roman(num):
     return roman_num
 
 
+def int_list_to_rom(int_list):
+    rom_list = []
+    for item in int_list:
+        rom_list.append(int_to_roman(item))
+    return rom_list
+
 def is_prime(num):
     i = 2
     while i <= np.sqrt(num):
@@ -122,7 +128,7 @@ for m in primes_by_length[5]:
                     e3_s_valids.append(s)
                 if a not in e3_a_valids:
                     e3_a_valids.append(a)
-print('m: ', e3_m_valids, ' s: ', e3_s_valids, ' a: ', e3_a_valids)
+print('m: ', int_list_to_rom(e3_m_valids), ' s: ', int_list_to_rom(e3_s_valids), ' a: ', int_list_to_rom(e3_a_valids))
 
 e6_s_valids = []
 e6_b_valids = []
@@ -142,7 +148,8 @@ for s in e3_s_valids:
                         e6_t_valids.append(t)
                     if a not in e6_a_valids:
                         e6_a_valids.append(a)
-print('s: ', e6_s_valids, ' b: ', e6_b_valids, ' t: ', e6_t_valids, ' a: ', e6_a_valids)
+print('s: ', int_list_to_rom(e6_s_valids), ' b: ', e6_b_valids, ' t: ', e6_t_valids, ' a: ',
+      int_list_to_rom(e6_a_valids))
 
 print('e2: e + f + + g + h + k + VII = s + m')
 e2_valids = []
@@ -158,7 +165,9 @@ for e in primes_by_length[4]:
                             temp_valids.sort()
                             if temp_valids not in e2_valids:
                                 e2_valids.append(temp_valids)
-print('e, f, g, h, j, k: ', e2_valids)
+print('e, f, g, h, j, k: ')
+for li in e2_valids:
+    print(int_list_to_rom(li))
 
 print('e4: IIn = IIp + a + III')
 e4_n_valids = []
@@ -170,7 +179,7 @@ for n in e1_n_valids:
                 e4_n_valids.append(n)
             if p not in e4_p_valids:
                 e4_p_valids.append(p)
-print('n: ', e4_n_valids, ' p: ', e4_p_valids)
+print('n: ', int_list_to_rom(e4_n_valids), ' p: ', int_list_to_rom(e4_p_valids))
 
 print('e5: q + XV = IVr)')
 e5_q_valids = []
@@ -182,7 +191,7 @@ for r in primes_by_length[7]:
                 e5_q_valids.append(q)
             if r not in e5_r_valids:
                 e5_r_valids.append(r)
-print('q: ', e5_q_valids, ' r: ', e5_r_valids)
+print('q: ', int_list_to_rom(e5_q_valids), ' r: ', int_list_to_rom(e5_r_valids))
 
 e1_c_valids = []
 e1_d_valids = []
@@ -202,4 +211,5 @@ for d in primes_by_length[4]:
                         e1_c_valids.append(c)
                     if n not in e1_n_valids:
                         e1_n_valids.append(n)
-print('t: ', e1_t_valids, ' d: ', e1_d_valids, ' c: ', e1_c_valids, 'n: ', e1_n_valids)
+print('t: ', int_list_to_rom(e1_t_valids), ' d: ', int_list_to_rom(e1_d_valids), ' c: ', int_list_to_rom(e1_c_valids),
+      'n: ', int_list_to_rom(e1_n_valids))
