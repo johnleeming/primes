@@ -152,14 +152,14 @@ for s in e3_s_valids:
 print('s: ', int_list_to_rom(e6_s_valids), ' b: ', int_list_to_rom(e6_b_valids), ' t: ', int_list_to_rom(e6_t_valids),
       ' a: ', int_list_to_rom(e6_a_valids))
 
-print('e2: e + f + + g + h + k + VII = s + m')
+print('e2: e + f + g + h + k + VII = s + m')
 e2_valids = []
 for e in primes_by_length[4]:
     for f in primes_by_length[4]:
         for g in primes_by_length[4]:
             for h in primes_by_length[4]:
                 for k in primes_by_length[4]:
-                    if e + f + g + h + k + 7 == e3_s_valids[0] + e6_s_valids[0]:
+                    if e + f + g + h + k + 7 == e6_s_valids[0] + e3_m_valids[0]:
                         temp_set = {e, f, g, h, k}
                         if len(temp_set) == 5:
                             temp_valids = list(temp_set)
