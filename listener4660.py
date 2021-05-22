@@ -2,6 +2,7 @@
 import numpy as np
 
 
+#  general functions
 def is_prime(num):
     i = 2
     ans = False
@@ -38,10 +39,6 @@ def find_square(bottom, top):
         sqs.append(i * i)
         i += 1
     return sqs
-
-
-def int_to_list(num):
-    return list(map(int, str(num)))
 
 
 def contains_prime(num, ps):
@@ -88,16 +85,23 @@ def digit_sum(num):
 
 def is_ascending(num):
     ds = digitise(num)
-    ans = False
-    for i in range(1,len(ds)):
-        if ds[i-1] < ds[1]:
-            ans = True
-        else:
+    ans = True
+    for i in range(1, len(ds)):
+        if ds[i-1] >= ds[i]:
             ans = False
             break
     return ans
 
 
+def find_asc_primes():  # find primes that have ascending digits
+    ans = []
+    for p in primes:
+        if is_ascending(p):
+            ans.append(p)
+    return ans
+
+
+#  clue tests
 def ac12(ts, ps):
     pos = []
     for t in ts:
@@ -212,34 +216,95 @@ def d10():
         if i % d_sum == 0 and is_ascending(i):
             rp = contains_prime(i, primes)
             if len(rp) > 0:
-                ans.append([i, rp])
+                for a in rp:
+                    if a[2][-1] in ['2', '8']:
+                        ans.append(a)
         i += 1
+    return ans
+
+
+def d15():
+    ans = []
+    for t in squares_containing_r_primes:
+        if t[2][0] == '2' and len(t[2]) == 2:
+            ans.append(t)
+    return ans
+
+
+def ac18(h_pos, n_pos, w_pos):
+    ans = []
+    for h in h_pos:
+        i = 100
+        while h * i < 100000:
+            c = contains_prime(h * i, n_pos)
+            if len(c) > 0:
+                for cc in c:
+                    if len(cc[2]) == 3 and cc[2][1] == '1':
+                        for p in primes:
+                            if int(cc[2]) % p == 0:
+                                cc.append(p)
+                                ans.append(cc)
+            i += 1
+    return ans
+
+
+def d16():
+    ans = []
+    for p in primes:
+        i = int(1000 / p) + 1
+        while p * i < 10000:
+            c = contains_prime(p * i, [p])
+            if len(c) > 0:
+                for cc in c:
+                    if cc[0][0] == '9':
+                        ans.append(cc)
+            i += 1
+    return ans
+
+
+def d1():
+    ans = []
+    for z in primes:
+        for t in triangular_nos:
+            if t > z:
+                p = t - z
+                if is_prime(p):
+                    ans.append([str(t - z), str(t), str(z)])
     return ans
 
 
 # main
 primes = find_primes(11, 99)
+r_primes = [13, 17, 31, 37, 71, 73, 79, 97]  # primes which when reversed are also prime
 triangular_nos = find_tris(200)
 squares = find_square(1000, 99999)
-print(primes)
-print(triangular_nos)
-print(squares)
+print('primes', primes)
+print('triangular numbers ', triangular_nos)
+print('squares ', squares)
+squares_containing_primes = find_squares_containing_primes(squares, primes)
+print('squares containing primes ', squares_containing_primes)
+squares_containing_r_primes = find_squares_containing_primes(squares, r_primes)
+print('squares containing reversible primes', squares_containing_r_primes)
+asc_primes = find_asc_primes()
+print('ascending primes ', asc_primes)
 # ac12_pos = ac12(triangular_nos, primes)
 # print(ac12_pos)
 # d4_pos = d4(['1', '8'])
 # print(d4_pos)
 # ac15_pos = ac15(primes)
-# print(ac15_pos)
-# D_pos = []
-# for pos in ac15_pos:
-#     D_pos.append(int(pos[0]))
-# ac7_pos = ac7(D_pos)
-# print(ac7_pos)
-squares_containing_primes = find_squares_containing_primes(squares, primes)
-print(squares_containing_primes)
-ac2_pos = ac2()
-print(ac2_pos)
-d1_pos = d1(triangular_nos, primes)
-print(d1_pos)
-d10_pos = d10()
-print(d10_pos)
+# print('15ac:', ac15_pos)
+# ac2_pos = ac2()
+# print('2ac: ', ac2_pos)
+# d1_pos = d1(triangular_nos, primes)
+# print('d1: ', d1_pos)
+# d10_pos = d10()
+# print('10d: ', d10_pos)
+# ac7_pos = ac7([29])
+# print('7ac: ', ac7_pos)
+# print('15d: ', d15())
+# ac18_pos = ac18([11, 13, 83, 59], asc_primes, primes)
+# print('18ac: ', ac18_pos)
+# d16_pos = d16()
+# print('16d: ', d16_pos)
+d1_pos = d1()
+print('d1: ', d1_pos)
