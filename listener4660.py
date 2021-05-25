@@ -69,6 +69,15 @@ def find_squares_containing_primes(sqs, ps):
     return ans
 
 
+def find_triangles_containing_primes(trs, ps):
+    ans = []
+    for s in trs:
+        a = contains_prime(s, ps)
+        if len(a) > 0:
+            ans.extend(a)
+    return ans
+
+
 def digitise(num):
     ds = []
     num_s = str(num)
@@ -138,6 +147,14 @@ def ac2():
     return ans
 
 
+def ac5():
+    ans = []
+    for p in squares_containing_r_primes:
+        if int(p[1]) in primes_available and int(p[1][::-1]) in primes_available:
+            ans.append(p)
+    return ans
+
+
 def ac7(ps):
     ans = []
     for p in ps:
@@ -168,22 +185,15 @@ def ac11(ps, d11p):
 
 
 def ac12(ts, ps):
-    pos = []
+    ans = []
     for t in ts:
         if 999 < t < 10000:
-            t_s = str(t)
-            for p in ps:
-                p_s = str(p)
-                i = 0
-                while i < len(t_s):
-                    i = t_s.find(p_s, i)
-                    if i == -1:
-                        break
-                    candidate = int(t_s[:i] + t_s[i + 2:])
-                    if candidate in ts:
-                        pos.append([t_s, p_s, str(candidate)])
-                    i += 1
-    return pos
+            candidates = find_triangles_containing_primes([t], ps)
+            if len(candidates) > 0:
+                for c in candidates:
+                    if int(c[2]) in ts and c[2][-1] in ['1', '8']:
+                        ans.append(c)
+    return ans
 
 
 def ac13(ps):
@@ -217,14 +227,14 @@ def ac15(ps):
 def ac18(h_pos, n_pos, w_pos):
     ans = []
     for h in h_pos:
-        i = 100
+        i = int(10000/h) + 1
         while h * i < 100000:
             c = contains_prime(h * i, n_pos)
             if len(c) > 0:
                 for cc in c:
-                    if len(cc[2]) == 3 and cc[2][1] == '1':
-                        for p in primes_available:
-                            if int(cc[2]) % p == 0:
+                    if len(cc[2]) == 3 and cc[2][1] == '1' and cc[1] != h:
+                        for p in w_pos:
+                            if int(cc[2]) % p == 0 and cc[1] != p and h != p:
                                 cc.append(p)
                                 ans.append(cc)
             i += 1
@@ -280,6 +290,20 @@ def d6(ps):
     return ans
 
 
+def d8(ps):
+    ans = []
+    for i in range(10, 1, -1):
+        for ii in range(i - 1, 1, -1):
+            for iii in range(ii - 1, 1, -1):
+                for iv in range(iii - 1, 1, -1):
+                    for v in range(iv - 1, 1, -1):
+                        test = (i * 10000) + (ii * 1000) + (iii * 100) + (iv * 10) + v
+                        candidates = contains_prime(test, ps)
+                        if len(candidates) > 0:
+                            for c in candidates:
+                                ans.append(c)
+    return ans
+
 def d10():
     i = 10000
     ans = []
@@ -308,6 +332,18 @@ def d11(ps):
                             for c in candidates:
                                 if (int(c[2]) - int(c[1])) in ps:
                                     ans.append(c)
+    return ans
+
+
+def d12(ps, ac18p):
+    ans = []
+    for i in range(10000, 99999):
+        for a in ac18p:
+            candidate = contains_prime(i, ps)
+            if len(candidate) > 0:
+                for c in candidate:
+                    if digit_sum(int(c[0])) == digit_sum(int(a[0])) and sorted(a[2]) == sorted(c[2]):
+                        ans.append(c)
     return ans
 
 
@@ -342,6 +378,15 @@ def ac7_d1(ac7_p, d1_p):
     return ans
 
 
+def ac18_d11(ac18p, d11p):
+    ans = []
+    for a in ac18p:
+        for d in d11p:
+            if a[3] % int(d[1]) == 0:
+                ans.append([a, d])
+    return ans
+
+
 # main
 primes = find_primes(11, 99)
 primes_available = primes.copy()
@@ -355,50 +400,79 @@ squares_containing_r_primes = find_squares_containing_primes(squares, r_primes)
 four_digit_squares_containing_primes = find_squares_containing_primes(four_digit_squares, primes)
 four_digit_squares_containing_r_primes = find_squares_containing_primes(four_digit_squares, r_primes)
 asc_primes = find_asc_primes()
+triangles_containing_primes = find_triangles_containing_primes(triangular_nos, primes)
 
 ac15_pos = ac15(primes)
 print('15ac:', ac15_pos)
 print('15d: ', d15())
+primes_available.remove(17)  # S
+primes_available.remove(29)  # D
+primes_available.remove(43)  # L
+
 d3_pos = find_squares_containing_primes(four_digit_squares, [73, 97])
 print('3d: ', d3_pos)
+primes_available.remove(73)  # Q
+primes_available.remove(37)  # Y
 
-primes_available.remove(17)
-primes_available.remove(29)
-primes_available.remove(43)
+d6_pos = d6(primes_available)
+print('6d: ', len(d6_pos))
+ac5_pos = ac5()
+print('5a: ', len(ac5_pos))
+ac5_d6_pos = check_cross(ac5_pos, 1, d6_pos, 0)
+print('5a & 6d ', len(ac5_d6_pos))
+d6_pos_new = get_a_or_d(ac5_d6_pos, 'd')
+print('6d new: ', len(d6_pos_new))
+ac5_pos_new = get_a_or_d(ac5_d6_pos, 'a')
+print('5a new: ', len(ac5_pos_new))
+ac13_pos = ac13(primes_available)
+print('13a: ', len(ac13_pos))
+ac13_d6_pos = check_cross(ac13_pos, 1, d6_pos_new, 2)
+print('ac13 & d6: ', len(ac13_d6_pos))
+
+d11_pos = d11(primes_available)
+print('11d: ', len(d11_pos))
+ac11_pos = ac11(primes_available, d11_pos)
+print('11ac: ', len(ac11_pos))
+ac11_d11_pos = check_cross(ac11_pos, 0, d11_pos, 0)
+print('11a & 11d: ', len(ac11_d11_pos))
+
+ac7_pos = ac7([29])
+print('7ac: ', len(ac7_pos))
+ac7_d3_pos = check_cross(ac7_pos, 2, d3_pos, 1)
+print('7ac & 3d ', len(ac7_d3_pos))
+ac7_pos_new = get_a_or_d(ac7_d3_pos, 'a')
+print('7ac: ', len(ac7_pos_new))
+d1_pos = d1(triangular_nos, primes_available)
+print('1d: ', len(d1_pos))
+ac7_d1_pos = check_cross(ac7_pos, 0, d1_pos, 1)
+print('7ac & 1d: ', len(ac7_d1_pos))
+
+ac2_pos = ac2()
+print('2ac: ', len(ac2_pos))
+ac2_d3_pos = check_cross(ac2_pos, 1, d3_pos, 0)
+print('2ac & 3d: ', len(ac2_d3_pos))
 
 d10_pos = d10()
 print('10d: ', d10_pos)
-ac13_pos = ac13(primes_available)
-print('13a: ', len(ac13_pos))
 ac13_d10_pos = check_cross(ac13_pos, 0, d10_pos, 1)
 print('13ac & 10d: ', len(ac13_d10_pos))
 ac13_pos_new = get_a_or_d(ac13_d10_pos, 'a')
 
-d6_pos = d6(primes_available)
-print('6d: ', len(d6_pos))
-ac5_d6_pos = check_cross(four_digit_squares_containing_r_primes, 1, d6_pos, 0)
-print('5a & 6d ', len(ac5_d6_pos))
-d6_pos_new = get_a_or_d(ac5_d6_pos, 'd')
-print('6d: ', len(d6_pos_new))
+ac18_pos = ac18([11, 13, 83, 59], asc_primes, [79, 89])
+print('18ac: ', len(ac18_pos))
+ac18_d11_pos = ac18_d11(ac18_pos, d11_pos)
+print('18ac & d11: ', len(ac18_d11_pos))
+d11_pos_new = get_a_or_d(ac18_d11_pos, 'd')
+print('11d new: ', d11_pos_new)
+d12_pos = d12(primes_available, ac18_pos)
+print('12d: ', len(d12_pos))
+
 ac13_d6_pos = check_cross(ac13_pos_new, 1, d6_pos_new, 2)
 print('13ac & 6d: ', len(ac13_d6_pos))
 
-ac2_pos = ac2()
-print('2ac: ', len(ac2_pos))
-
-
-d1_pos = d1(triangular_nos, primes_available)
-print('d1: ', d1_pos)
-
-ac7_pos = ac7([29])
-print('7ac: ', ac7_pos)
-
-ac18_pos = ac18([11, 13, 83, 59], asc_primes, primes_available)
-print('18ac: ', len(ac18_pos))
 d16_pos = d16()
 print('16d: ', len(d16_pos))
-ac7_d1_pos = ac7_d1(ac7_pos, d1_pos)
-print('7ac & 1d: ', len(ac7_d1_pos))
+
 ac12_pos = ac12(triangular_nos, primes_available)
 print('12a: ', ac12_pos)
 d4_pos = d4(['1', '8'])
@@ -409,7 +483,3 @@ d4_pos_new = get_a_or_d(ac12_d4_pos, 'd')
 print('d4: ', len(d4_pos_new))
 ac2_d4_pos = check_cross(ac2_pos, 2, d4_pos, 0)
 print('2ac & 4d: ', len(ac2_d4_pos))
-d11_pos = d11(primes_available)
-print('11d: ', len(d11_pos))
-ac11_pos = ac11(primes_available, d11_pos)
-print('11ac: ', len(ac11_pos))
